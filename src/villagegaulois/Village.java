@@ -2,7 +2,6 @@ package villagegaulois;
 
 import personnages.Chef;
 import personnages.Gaulois;
-import villagegaulois.Etal;
 
 public class Village {
 	private String nom;
@@ -10,9 +9,10 @@ public class Village {
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
 
-	public Village(String nom, int nbVillageoisMaximum) {
+	public Village(String nom, int nbVillageoisMaximum, int nbEtal) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
+		Marche marche = new Marche(nbEtal);
 	}
 
 	public String getNom() {
@@ -39,7 +39,7 @@ public class Village {
 		
 		public int trouverEtalLibre() {
 			int i=0;
-			while (i<etals.length-1 & !etals[i].isEtalOccupe()) {
+			while (i<etals.length && !etals[i].isEtalOccupe()) {
 				i++;
 			}
 			if(etals[i].isEtalOccupe()) {
@@ -67,6 +67,20 @@ public class Village {
 				}
 			}
 			return null;
+		}
+		
+		public String afficherMarche() {
+			StringBuilder chaine = new StringBuilder();
+			int i=0;
+			while (i<etals.length && etals[i].isEtalOccupe()) {
+				chaine.append(etals[i].afficherEtal());
+				i++;
+			}
+			int nbEtalsLibres = etals.length - i;
+			if (nbEtalsLibres!=0) {
+				chaine.append("Il reste "+nbEtalsLibres+" étals non utilisés dans le marché.\n");
+			}
+			return chaine.toString();
 		}
 	}
 	
