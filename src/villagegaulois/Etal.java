@@ -27,6 +27,9 @@ public class Etal {
 
 	public String libererEtal() {
 		etalOccupe = false;
+		if (vendeur==null) {
+			throw new NullPointerException("Etal non occupé\n");
+		}
 		StringBuilder chaine = new StringBuilder(
 				"Le vendeur " + vendeur.getNom() + " quitte son étal, ");
 		int produitVendu = quantiteDebutMarche - quantite;
