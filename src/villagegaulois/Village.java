@@ -1,9 +1,9 @@
 package villagegaulois;
 
-import java.util.Iterator;
-
+import histoire.VillageSansChefException;
 import personnages.Chef;
 import personnages.Gaulois;
+
 
 public class Village {
 	private String nom;
@@ -116,8 +116,11 @@ public class Village {
 		return null;
 	}
 
-	public String afficherVillageois() {
+	public String afficherVillageois() throws VillageSansChefException {
 		StringBuilder chaine = new StringBuilder();
+		if (chef == null) {
+			throw new VillageSansChefException("Village sans chef\n");
+		}
 		if (nbVillageois < 1) {
 			chaine.append("Il n'y a encore aucun habitant au village du chef "
 					+ chef.getNom() + ".\n");
