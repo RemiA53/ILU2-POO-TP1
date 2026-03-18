@@ -1,5 +1,7 @@
 package villagegaulois;
 
+import java.util.Iterator;
+
 import personnages.Chef;
 import personnages.Gaulois;
 
@@ -8,11 +10,12 @@ public class Village {
 	private Chef chef;
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
+	private Marche marche;
 
 	public Village(String nom, int nbVillageoisMaximum, int nbEtal) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
-		Marche marche = new Marche(nbEtal);
+		this.marche = new Marche(nbEtal);
 	}
 
 	public String getNom() {
@@ -27,7 +30,6 @@ public class Village {
 		private Etal[] etals;
 		
 		public Marche(int nbEtal) {
-			this.etals = etals;
 			etals = new Etal[nbEtal];
 		}
 		
@@ -38,23 +40,28 @@ public class Village {
 		}
 		
 		public int trouverEtalLibre() {
-			int i=0;
-			while (i<etals.length && !etals[i].isEtalOccupe()) {
-				i++;
-			}
-			if(etals[i].isEtalOccupe()) {
-				return i;
-			}
-			return -1;
+		    for (int i=0;i<etals.length;i++) {    
+			if (etals[i] == null || !etals[i].isEtalOccupe()) {
+		            return i;
+		        }
+		    }
+		    return -1;
 		}
 		
 		public Etal[] trouverEtals(String produit) {
-			Etal[] etalsProduit = new Etal[etals.length];
 			int tailleEtalsProduit = 0;
 			for (int i=0;i<etals.length;i++) {
 				if (etals[i].contientProduit(produit)) {
-					etalsProduit[tailleEtalsProduit] = etals[i];
 					tailleEtalsProduit++;
+				}
+			}
+			Etal[] etalsProduit = new Etal[tailleEtalsProduit];
+			
+			int index = 0;
+			for (int i = 0; i < tailleEtalsProduit; i++) {
+				if (etals[i].contientProduit(produit)) {
+					etalsProduit[index] = etals[i];
+					index++;
 				}
 			}
 			return etalsProduit;
@@ -78,7 +85,7 @@ public class Village {
 			}
 			int nbEtalsLibres = etals.length - i;
 			if (nbEtalsLibres!=0) {
-				chaine.append("Il reste "+nbEtalsLibres+" étals non utilisés dans le marché.\n");
+				chaine.append("Il reste "+nbEtalsLibres+" ï¿½tals non utilisï¿½s dans le marchï¿½.\n");
 			}
 			return chaine.toString();
 		}
@@ -115,6 +122,18 @@ public class Village {
 			for (int i = 0; i < nbVillageois; i++) {
 				chaine.append("- " + villageois[i].getNom() + "\n");
 			}
+		}
+		return chaine.toString();
+	}
+	
+	public String installerVendeur(Gaulois vendeur, String produit, int nbProduit) {
+		StringBuilder chaine = new StringBuilder();
+		chaine.append(vendeur.getNom() + " cherche un endroit pour vendre "+nbProduit+" "+produit+".\n");
+		int numEtal = marche.trouverEtalLibre();
+		if(numEtal!=-1) {
+			marche.utiliserEtal(numEtal, vendeur, produit, nbProduit);
+			numEtal++;
+			chaine.append("Le vendeur "+vendeur.getNom()+" vend des fleurs Ã  l'Ã©tal nÂ°"+numEtal+".\n");
 		}
 		return chaine.toString();
 	}
