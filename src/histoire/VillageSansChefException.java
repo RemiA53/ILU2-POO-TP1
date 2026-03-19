@@ -13,7 +13,6 @@ public class VillageSansChefException extends Exception {
 	}
 	
 	public VillageSansChefException(String message, Throwable cause) {
-		super(message);
-		super(cause);
+		super(message,cause);
 	}
 }
