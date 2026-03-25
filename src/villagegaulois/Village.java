@@ -164,7 +164,8 @@ public class Village {
 			chaine.append(" au marché.\n");
 		} else if (etalsProduit.length==1) {
 			chaine.append("Seul le vendeur ");
-			chaine.append(etalsProduit[0].getVendeur().getNom());
+			Gaulois vendeur = etalsProduit[0].getVendeur();
+			chaine.append(vendeur.getNom());
 			chaine.append(" propose des ");
 			chaine.append(produit);
 			chaine.append(" au marché.\n");
@@ -175,7 +176,8 @@ public class Village {
 			
 			for (int i=0;i<etalsProduit.length;i++) {
 				chaine.append("- ");
-				chaine.append(etalsProduit[i].getVendeur().getNom());
+				Gaulois vendeur = etalsProduit[i].getVendeur();
+				chaine.append(vendeur.getNom());
 				chaine.append("\n");
 			}
 		}

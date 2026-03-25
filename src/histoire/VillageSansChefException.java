@@ -1,6 +1,7 @@
 package histoire;
 
 public class VillageSansChefException extends Exception {
+	
 	public VillageSansChefException() {
 	}
 	
