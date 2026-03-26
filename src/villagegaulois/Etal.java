@@ -25,6 +25,7 @@ public class Etal {
 		etalOccupe = true;
 	}
 
+	//TODO relire l'énoncé : demande de gérer pas de jeter l'exception
 	public String libererEtal() {
 		etalOccupe = false;
 		if (vendeur==null) {
@@ -50,6 +51,7 @@ public class Etal {
 		return "L'Ã©tal est libre";
 	}
 
+	//TODO bien relire l'énoncé
 	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
 			StringBuilder chaine = new StringBuilder();
 			try {
