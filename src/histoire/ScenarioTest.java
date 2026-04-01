@@ -7,22 +7,21 @@ import personnages.Gaulois;
 public class ScenarioTest {
 	public static void main(String[] args) {
 		Etal etal = new Etal();
-		try {
-			etal.libererEtal();	
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
+		etal.libererEtal();	
+		System.out.println("Fin test libererEtal");
 		
-		Gaulois vendeur = new Gaulois("Vendeur", 20);
-		etal.occuperEtal(vendeur, "Fleur", 0);
+		Gaulois acheteur = new Gaulois("Acheteur", 25);		
+		Gaulois vendeur = new Gaulois("Vendeur", 25);
+		etal.occuperEtal(vendeur, "fleurs", 0);
 		System.out.println(etal.acheterProduit(12, null));
+		System.out.println("Fin test AcheterProduit AcheteurNull");
 		
-		Gaulois acheteur = new Gaulois("Acheteur", 25);
 		try {
-			etal.acheterProduit(-1, acheteur);
+			etal.acheterProduit(0, acheteur);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Fin test AcheterProduit Quantite Illicite");
 		
 		Etal etal2 = new Etal();
 		try {
@@ -32,7 +31,6 @@ public class ScenarioTest {
 		}
 		
 		Village village = new Village("le village des irréductibles", 10, 5);
-		village.ajouterHabitant(vendeur);
 		village.ajouterHabitant(acheteur);
 		try {
 			System.out.println(village.afficherVillageois());
