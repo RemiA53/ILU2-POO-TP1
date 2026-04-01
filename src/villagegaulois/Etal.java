@@ -52,7 +52,6 @@ public class Etal {
 		return "L'étal est libre";
 	}
 
-	//TODO bien relire l'�nonc�
 	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
 		try {
 			acheteur.getNom();
@@ -60,11 +59,14 @@ public class Etal {
 			e.printStackTrace();
 			return "";
 		}
+		if (!etalOccupe) {
+			throw new IllegalStateException("Etal non occupé");
+		}
 		StringBuilder chaine = new StringBuilder();
 		chaine.append(acheteur.getNom() + " veut acheter " + quantiteAcheter
 				+ " " + produit + " à " + vendeur.getNom());
 		if (quantiteAcheter<1) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Quantité non autorisé");
 		}
 		if (quantite == 0) {
 			chaine.append(", malheureusement il n'y en a plus !");
